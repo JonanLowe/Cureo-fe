@@ -72,7 +72,8 @@ export default function SingleItem(){
     if (item.proxies[1]) {
       if (item.proxies[1].dcDescription){const keys = Object.keys(item.proxies[1].dcDescription);
         if (item.proxies[1].dcDescription.en) {description=item.proxies[1].dcDescription.en[0]}
-        else description= item.proxies[1].dcDescription[keys][0]
+       
+        else {description= item.proxies[1].dcDescription[keys[0]][0]}
       }
     }       
   }
