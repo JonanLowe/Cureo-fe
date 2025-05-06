@@ -31,13 +31,15 @@ export default function AllUsers(){
   ); 
 
   if (isError) {
-    return <>
-      <UserLoadingMessage/>
-    </>
+    return <p>
+      Error getting users
+    </p>
   }
 
   if (isLoading) {
-    return <p>getting users...</p>;
+    return <>
+    <UserLoadingMessage/>
+  </>
   }
 
   return (   
