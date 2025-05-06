@@ -20,7 +20,7 @@ If you wish to clone and access this repo:
 
 Use the terminal to navigate to your chosen directory and enter:
 
-    git clone https://github.com/JonanLowe/nc-news-jl
+    git clone https://github.com/JonanLowe/Cureo-fe
 
 ### Installing Dependencies:
 
@@ -42,9 +42,10 @@ In this file, write:
 
 This will allow requests to the Europeana API for use in this app.
 
-### running on localhost:
+### Running on localhost:
 
-To run the file from the terminal, navigate to the root directory and eter:
+To run the file from the terminal, navigate to the root directory and enter:
+
     npm run dev
 
 ---
