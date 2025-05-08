@@ -10,7 +10,7 @@ export default function CollectionCard({collectionName, itemCount}){
       <Link to={`/users/${user}/collections/${collectionName}`}>          
         <p className="item-card-name">{collectionName}</p>
         <div className="item-card-info-container">
-          {itemCount? <p className="item-card-info-text">collection Length: {itemCount}</p>: null}
+          {itemCount? <p className="item-card-info-text">  <span style={{"fontWeight":"bold"}}>{itemCount}</span> items in collection</p>: null}
         </div>
       </Link>
     </section>
