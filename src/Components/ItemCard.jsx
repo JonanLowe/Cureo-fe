@@ -50,7 +50,9 @@ export default function ItemCard(props){
     <>
       <section aria-label={`information about ${description}`}className="item-card">
         <Link to={linkString}>
+          <div className="thumbnail-container">
           {thumbnail === "no thumbnail" || thumbnail === "src/assets/gradient.jpg"? <Placeholder text={description}/> :<img src={thumbnail} alt={description} className="thumbnail"></img>}
+          </div>
         </Link>
         <div className="item-card-lower">
           <Link to={linkString}>
