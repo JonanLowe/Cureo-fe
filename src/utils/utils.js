@@ -26,7 +26,6 @@ export function getAllThumbnails (museumGroup, item, title){
     if (museumGroup === "SMG"){
       if (item.attributes.multimedia){
         const imageLocation = item.attributes.multimedia[0]["@processed"].large.location
-        console.log(imageLocation, "imagelocation")
         return 'https://coimages.sciencemuseumgroup.org.uk/' + imageLocation
       }
     }
