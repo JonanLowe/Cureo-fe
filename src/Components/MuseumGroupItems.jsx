@@ -3,6 +3,7 @@ import ItemCard from "./ItemCard.jsx";
 import { getSMGroup } from "../api/api.js"
 import { fetchEuropeanaGroup } from "../api/api.js";
 import MuseumLoadingMessage from "./MuseumLoadingMessage.jsx"
+import {getThumbnail, getAllThumbnails, getMuseum, getTitle, getType, getId} from "../utils/utils.js"
 
 export default function MuseumGroupItems({isLoading, setIsLoading, setLastPage, group, currentPage, itemsPerPage, searchTerm, setAvailableFilters, searchFilters}){
   const [items, setItems] = useState([]);
@@ -46,7 +47,13 @@ export default function MuseumGroupItems({isLoading, setIsLoading, setLastPage, 
 
   const itemsList = items.map(item=>
     <li aria-label={getTitle(museumGroup, item)} key={item.id}>
-      <ItemCard museumGroup={museumGroup} museum={getMuseum(museumGroup, item)} type={getType(museumGroup, item)} id={getId(museumGroup, item)} description={getTitle(museumGroup, item)} thumbnail={getThumbnail(museumGroup, item)}/>
+      <ItemCard
+       museumGroup={museumGroup}
+       museum={getMuseum(museumGroup, item)}
+       type={getType(museumGroup, item)}
+       id={getId(museumGroup, item)}
+       description={getTitle(museumGroup, item)}
+       thumbnail={getThumbnail(museumGroup, item)}/>
     </li>
     );
 
@@ -68,62 +75,4 @@ export default function MuseumGroupItems({isLoading, setIsLoading, setLastPage, 
       </ul>
     </div>
   )
-}
-
-function getThumbnail (museumGroup, item){
-  if (museumGroup === "SMG"){
-    if (item.attributes.multimedia){
-      const imageLocation = item.attributes.multimedia[0]["@processed"].large.location
-      return 'https://coimages.sciencemuseumgroup.org.uk/' + imageLocation
-    }
-  }
-  if (museumGroup === "europeana"){
-    if (item.edmPreview) {
-      return item.edmPreview[0]
-    }
-  }
-  return "no thumbnail"
-}
-
-
-function getMuseum (museumGroup, item){
-  if(museumGroup === "SMG"){
-    if(item.attributes.category){
-    return item.attributes.category[0].museum}
-  }
-  if(museumGroup === "europeana"){
-    if (item.dataProvider){
-      return item.dataProvider[0]
-    }
-  }
-  return "No museum information"
-}
-
-function getTitle(museumGroup, item){
-  if (museumGroup === "europeana"){
-    if (item.title) {return item.title[0]}
-    }
-  if (museumGroup === "SMG"){
-    if(item.attributes.summary.title){
-      return item.attributes.summary.title
-    }
-  }
-  else return "no title information"
-}
-
-function getType(museumGroup, item){
-  if (museumGroup === "SMG"){
-    if (item.type){return item.type}
-  }
-    if (museumGroup === "europeana"){
-    return "europeana"
-  }
-  else return "no type information"
-}
-  
-function getId(museumGroup, item){
-  if (museumGroup === "SMG" || museumGroup === "europeana"){
-    return item.id;
-  }
-  else return "no id"
 }

@@ -3,6 +3,7 @@ import { getSingleItemSM, getSingleItemEU } from "../api/api.js"
 import Gallery from "./Gallery.jsx";
 import UserContext from "../contexts/userContext.js"
 import CollectionsList from "./CollectionsList.jsx";
+import {getThumbnail, getAllThumbnails, getMuseum, getTitle, getType, getId} from "../utils/utils.js"
 
 import {useParams} from 'react-router-dom';
 
@@ -117,8 +118,8 @@ function displayGallery(museumGroup, item, title){
       <>
         {item.attributes.multimedia ?
           <>
-          {getThumbnails(museumGroup, item, title).length > 1? <Gallery images={getThumbnails(museumGroup, item, title)}/> : null}
-          {getThumbnails(museumGroup, item, title).length === 1? <img src={getThumbnails(museumGroup, item, title)[0].thumbnail}/> : null }
+          {getAllThumbnails(museumGroup, item, title).length > 1? <Gallery images={getAllThumbnails(museumGroup, item, title)}/> : null}
+          {getAllThumbnails(museumGroup, item, title).length === 1? <img src={getAllThumbnails(museumGroup, item, title)[0].thumbnail}/> : null }
           </>:<>no images available</>
         }
       </>
@@ -134,74 +135,74 @@ function displayGallery(museumGroup, item, title){
 }
 
 
-function getThumbnails (museumGroup, item, title){
-  if (museumGroup === "SMG"){ 
-    const images = item.attributes.multimedia
-    const imageLocations = []
-    images.forEach((image)=>{
-      imageLocations.push({
-          original: image["@processed"].large.location,
-          thumbnail: image["@processed"].large_thumbnail.location,
-          originalAlt: title,
-          thumbnailAlt: title
-          }
-        )
-    })
-  return imageLocations
-  }
-  if (museumGroup === "europeana"){
-    if (item.edmPreview) {
-  return item.edmPreview[0]
-  }
-  else return "no images available"
-  }
-}
+// function getThumbnails (museumGroup, item, title){
+//   if (museumGroup === "SMG"){ 
+//     const images = item.attributes.multimedia
+//     const imageLocations = []
+//     images.forEach((image)=>{
+//       imageLocations.push({
+//           original: image["@processed"].large.location,
+//           thumbnail: image["@processed"].large_thumbnail.location,
+//           originalAlt: title,
+//           thumbnailAlt: title
+//           }
+//         )
+//     })
+//   return imageLocations
+//   }
+//   if (museumGroup === "europeana"){
+//     if (item.edmPreview) {
+//   return item.edmPreview[0]
+//   }
+//   else return "no images available"
+//   }
+// }
 
-function getThumbnail (museumGroup, item){
-  if (museumGroup === "SMG"){
-    if (item.attributes.multimedia){
-      const imageLocation = item.attributes.multimedia[0]["@processed"].large.location
-      return imageLocation
-    }
-  }
-  if (museumGroup === "europeana"){
-    if (item.europeanaAggregation.edmPreview) {
-    return item.europeanaAggregation.edmPreview
-    }
-  }
-  return "no thumbnail"
-} 
+// function getThumbnail (museumGroup, item){
+//   if (museumGroup === "SMG"){
+//     if (item.attributes.multimedia){
+//       const imageLocation = item.attributes.multimedia[0]["@processed"].large.location
+//       return imageLocation
+//     }
+//   }
+//   if (museumGroup === "europeana"){
+//     if (item.europeanaAggregation.edmPreview) {
+//     return item.europeanaAggregation.edmPreview
+//     }
+//   }
+//   return "no thumbnail"
+// } 
   
-function getMuseum (museumGroup, item){
-  if(museumGroup === "SMG"){
-    if(item.attributes.category){
-    return item.attributes.category[0].museum}
-  }
-  if(museumGroup === "europeana"){
-    if (item.organizations){
-      return item.organizations[0].prefLabel.en[0]
-    }
-  }
-  return "No museum information"
-}
+// function getMuseum (museumGroup, item){
+//   if(museumGroup === "SMG"){
+//     if(item.attributes.category){
+//     return item.attributes.category[0].museum}
+//   }
+//   if(museumGroup === "europeana"){
+//     if (item.organizations){
+//       return item.organizations[0].prefLabel.en[0]
+//     }
+//   }
+//   return "No museum information"
+// }
   
-function getType(museumGroup, item){
-  if (museumGroup === "SMG"){
-    if (item.type){return item.type}
-  }
-    if (museumGroup === "europeana"){
-    return "europeana"
-  }
-  else return "no type information"
-}
+// function getType(museumGroup, item){
+//   if (museumGroup === "SMG"){
+//     if (item.type){return item.type}
+//   }
+//     if (museumGroup === "europeana"){
+//     return "europeana"
+//   }
+//   else return "no type information"
+// }
     
-function getId(museumGroup, item){
-  if (museumGroup === "SMG"){
-    return item.id;
-  }
-  if (museumGroup === "europeana"){      
-    return item.about;
-  }
-  else return "no id"
-}
+// function getId(museumGroup, item){
+//   if (museumGroup === "SMG"){
+//     return item.id;
+//   }
+//   if (museumGroup === "europeana"){      
+//     return item.about;
+//   }
+//   else return "no id"
+// }
   

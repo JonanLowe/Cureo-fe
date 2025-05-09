@@ -3,6 +3,7 @@ import { getSingleCollection } from '../api/api.js';
 import ItemCard from './ItemCard.jsx';
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../contexts/userContext.js"
+import {getThumbnail, getAllThumbnails, getMuseum, getTitle, getType, getId} from "../utils/utils.js"
 
 export default function SingleCollection(){
   const {user, collectionname} = useParams()
@@ -21,7 +22,7 @@ export default function SingleCollection(){
     }, [updateCollection])
    
     const itemsList = items.map(item=>
-      <li key={item.itemId}>
+      <li aria-label={getTitle(item)} key={item.itemId}>
         <ItemCard 
           museumGroup={getMuseumGroup(item)}
           museum={item.museum}
